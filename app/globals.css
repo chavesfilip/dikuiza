@@ -1,0 +1,169 @@
+/* =============================================================================
+   app/globals.css — Estilos Globais do Dikuiza
+   =============================================================================
+   Este ficheiro define estilos que se aplicam a TODA a aplicação.
+   Usamos variáveis CSS (--variavel) para manter as cores consistentes.
+   O Tailwind é configurado no tailwind.config.ts, mas aqui definimos
+   detalhes que o Tailwind não cobre directamente.
+   ============================================================================= */
+
+@tailwind base;       /* Reset CSS do Tailwind */
+@tailwind components; /* Componentes do Tailwind */
+@tailwind utilities;  /* Utilitários do Tailwind (as classes como bg-gold, p-4, etc.) */
+
+/* ── IMPORTAÇÃO DAS FONTES ─────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+/* ── VARIÁVEIS CSS ─────────────────────────────────────────────────────────── */
+/* Variáveis CSS são valores reutilizáveis. Mudamos aqui e muda em todo o lado. */
+:root {
+  --font-syne:    'Syne', sans-serif;
+  --font-dm-sans: 'DM Sans', sans-serif;
+
+  /* Cores base */
+  --ink:       #0F0E0D;
+  --ink-soft:  #1C1A17;
+  --ink-mid:   #2A2723;
+  --gold:      #E8A030;
+  --gold-lite: #F2BC60;
+  --gold-dim:  #A06E18;
+  --terra:     #C0522A;
+  --terra-lite:#D97850;
+  --sage:      #3D6B58;
+  --sage-lite: #5A9B7F;
+  --cream:     #FAF7F2;
+  --cream-dim: #C8C2B8;
+  --cream-mute:#706A61;
+  --danger:    #D94040;
+  --success:   #3A9E6E;
+}
+
+/* ── RESET E BASE ──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-dm-sans);
+  background-color: var(--ink);
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;  /* fontes mais nítidas em Mac/iOS */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── SCROLLBAR PERSONALIZADA ───────────────────────────────────────────────── */
+/* Estiliza a barra de scroll para combinar com o design */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--ink-soft); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ── TIPOGRAFIA BASE ───────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-syne);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+
+/* ── INPUTS E FORMULÁRIOS ──────────────────────────────────────────────────── */
+/* Estilos globais para todos os campos de formulário */
+input, textarea, select {
+  font-family: var(--font-dm-sans);
+  font-size: 14px;
+  color: var(--cream);
+  background: var(--ink-soft);
+  border: 1px solid rgba(232, 160, 48, 0.15);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(232, 160, 48, 0.1);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--cream-mute);
+}
+
+/* ── ANIMAÇÕES GLOBAIS ─────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-16px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ── CLASSES UTILITÁRIAS PERSONALIZADAS ────────────────────────────────────── */
+/* Classes que usamos muito e que o Tailwind não tem directamente */
+
+.animate-fade-in   { animation: fadeIn 0.3s ease-in-out; }
+.animate-slide-up  { animation: slideUp 0.3s ease-out; }
+.animate-slide-left { animation: slideInLeft 0.3s ease-out; }
+
+/* Gradiente dourado (usado em títulos da landing page) */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-lite), var(--terra-lite));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Fundo com padrão geométrico subtil (usado no hero da landing) */
+.bg-geo-pattern {
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(232,160,48,0.1) 0%, transparent 60%),
+    radial-gradient(circle at 10% 80%, rgba(192,82,42,0.05) 0%, transparent 50%);
+}
+
+/* Card com borda dourada no topo */
+.card-gold-top::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--terra), transparent);
+  border-radius: 12px 12px 0 0;
+}
+
+/* Ponto de status pulsante (online/activo) */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── MOBILE-FIRST MEDIA QUERIES ────────────────────────────────────────────── */
+/* "Mobile-first" = desenhamos primeiro para telemóvel, depois adaptamos */
+
+/* Oculta a sidebar em mobile (controlado pelo JavaScript) */
+@media (max-width: 768px) {
+  .sidebar-hidden-mobile {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sidebar-hidden-mobile.open {
+    transform: translateX(0);
+  }
+}
